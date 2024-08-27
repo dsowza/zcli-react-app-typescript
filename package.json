@@ -9,7 +9,7 @@
     "watch": "vite build --watch --mode development",
     "build:dev": "vite build --mode development",
     "build": "vite build --mode production",
-    "lint": "eslint . --ext js,jsx --max-warnings 0",
+    "lint": "eslint . --ext ts,tsx --max-warnings 0",
     "start": "zcli apps:server src",
     "start:prod": "zcli apps:server dist"
   },
