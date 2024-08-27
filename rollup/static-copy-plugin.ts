@@ -2,14 +2,36 @@ import path from 'node:path'
 import fs from 'node:fs/promises'
 import glob from 'fast-glob'
 
-export default function StaticCopy({ targets }) {
-  let config = null
+interface StaticCopyPluginOptions {
+  targets: {
+    src: string
+    dest: string
+    modifier?: (data: Buffer, fileName: string) => Buffer
+  }[]
+}
+
+
+type RollupOptions = {
+  build: {
+    outDir: string,
+  },
+}
+
+/**
+ * Rollup plugin for copying static files to the build directory
+ */
+export default function StaticCopy({ targets }: StaticCopyPluginOptions) {
+  let config: RollupOptions | null = null
   return {
     name: 'static-copy',
-    configResolved(resolvedConfig) {
+    configResolved(resolvedConfig: RollupOptions) {
       config = resolvedConfig
     },
     async writeBundle() {
+      if (!config) {
+        return
+      }
+
       const rootPath = config.build.outDir
       await Promise.all(
         targets.map(async ({ src, dest, modifier = (data) => data }) => {
@@ -22,7 +44,7 @@ export default function StaticCopy({ targets }) {
   }
 }
 
-async function processFiles(paths, dest, modifier) {
+async function processFiles(paths: string[], dest: string, modifier: (data: Buffer, fileName: string) => Buffer) {
   await Promise.all(
     paths.map(async (src) => {
       const isDirectory = (await fs.stat(src)).isDirectory()
@@ -40,7 +62,7 @@ async function processFiles(paths, dest, modifier) {
   )
 }
 
-async function ensureDirectory(src) {
+async function ensureDirectory(src: string) {
   try {
     await fs.mkdir(src, { recursive: true })
   } catch (error) {

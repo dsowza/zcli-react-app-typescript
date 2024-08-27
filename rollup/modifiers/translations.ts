@@ -7,12 +7,21 @@ const marketplaceKeys = [
   'parameters'
 ]
 
+type MarketplaceTranslation = {
+  _warning: string
+  app: {
+    [key in typeof marketplaceKeys[number]]?: string
+  }
+}
+
 const JS_INDENT = 2
 
-export function extractMarketplaceTranslation(content, filename) {
-  const translations = JSON.parse(content)
+export function extractMarketplaceTranslation(content: Buffer, filename: string): Buffer {
+  const translations = JSON.parse(content.toString())
 
-  const translationsOutput = {
+  console.log('testemarket')
+
+  const translationsOutput: MarketplaceTranslation = {
     _warning: `AUTOMATICALLY GENERATED FROM $/src/translations/${filename} - DO NOT MODIFY THIS FILE DIRECTLY`,
     app: {}
   }
@@ -21,5 +30,5 @@ export function extractMarketplaceTranslation(content, filename) {
     if (translations.app[key]) translationsOutput.app[key] = translations.app[key]
   })
 
-  return JSON.stringify(translationsOutput, null, JS_INDENT)
+  return Buffer.from(JSON.stringify(translationsOutput, null, JS_INDENT))
 }

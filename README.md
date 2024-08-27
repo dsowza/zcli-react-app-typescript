@@ -94,7 +94,7 @@ The folder and file structure of the App Scaffold is as follows:
 | [`spec/`](#spec)               | The folder in which all of your test files live                                              |
 | [`src/`](#src)                 | The folder in which all of your source JavaScript, CSS, templates and translation files live |
 | [`rollup/`](#src)              | static-copy-plugin and translations-loader-plugin to support i18n in the application         |
-| [`vite.config.js`](#vite)      | Configuration file for vite                                                                  |
+| [`vite.config.ts`](#vite)      | Configuration file for vite                                                                  |
 | [`package.json`](#packagejson) | Configuration file for Project metadata, dependencies and build scripts                      |
 
 #### dist
@@ -109,9 +109,9 @@ The spec directory is where all your tests and test helpers live. Tests are not 
 
 The src directory is where your raw source code lives. The App Scaffold includes different directories for JavaScript, stylesheets, templates, images, and translations. Most of your additions will be in here (and spec, of course!).
 
-#### vite.config.js
+#### vite.config.ts
 
-`vite.config.js` is the configuration file for [Vite](https://vitejs.dev/). Vite is a fast build tool that leverages ESBuild for transpilation and Rollup for bundling. This file includes configurations for building, testing, and other customizations.
+`vite.config.ts` is the configuration file for [Vite](https://vitejs.dev/). Vite is a fast build tool that leverages ESBuild for transpilation and Rollup for bundling. This file includes configurations for building, testing, and other customizations.
 
 - You can modify ESBuild settings directly within this file to adjust transpilation options. For more information, see the [Vite documentation on ESBuild](https://vitejs.dev/config/#esbuild).
 

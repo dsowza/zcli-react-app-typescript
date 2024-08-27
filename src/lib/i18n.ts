@@ -1,5 +1,3 @@
-import { flatten } from 'flat'
-
 class I18n {
   translations: Record<string, string> = {}
   constructor() {
@@ -26,7 +24,7 @@ class I18n {
       try {
         const importedTranslations = await this.tryRequire(intentLocales[0])
         if (importedTranslations.default) {
-          this.translations = flatten(importedTranslations.default)
+          this.translations = importedTranslations.default
           break
         }
       } catch (error) {
