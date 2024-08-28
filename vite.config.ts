@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { fileURLToPath } from 'node:url'
 import { resolve, dirname } from 'node:path'
 import react from '@vitejs/plugin-react'
@@ -11,7 +12,7 @@ import process from 'node:process'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-export default ({ mode }) => {
+export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
   return defineConfig({
     base: './',
