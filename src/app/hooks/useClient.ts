@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react'
 import { ClientContext } from '../contexts/ClientProvider.js'
+import { AppLocation } from '../../types.ts'
 
 export const useClient = () => {
   const ctx = useContext(ClientContext)
@@ -12,7 +13,7 @@ export const useClient = () => {
 }
 
 export const useLocation = () => {
-  const [location, setLocation] = useState<string>('default')
+  const [location, setLocation] = useState<AppLocation>('default')
   const client = useClient()
 
   useEffect(() => {

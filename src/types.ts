@@ -6,20 +6,32 @@ export interface Metadata<T> {
   settings: T
 }
 
-export enum AppLocations {
-  dealCard = 'deal_card',
-  leadCard = 'lead_card',
-  personCard = 'person_card',
-  companyCard = 'company_card',
-  modal = 'modal',
-}
-
-export type AppLocation =
+export type AppSellLocation =
+  | 'background'
+  | 'call_log_editor'
+  | 'company_card'
   | 'deal_card'
   | 'lead_card'
-  | 'person_card'
-  | 'company_card'
   | 'modal'
+  | 'note_editor'
+  | 'person_card'
+  | 'top_bar'
+  | 'visit_editor'
+
+export type AppSupportLocation =
+  | 'background'
+  | 'modal'
+  | 'nav_bar'
+  | 'new_ticket_sidebar'
+  | 'organization_sidebar'
+  | 'ticket_editor'
+  | 'ticket_sidebar'
+  | 'top_bar'
+  | 'user_sidebar'
+
+export type AppChatLocation = 'background' | 'chat_sidebar'
+
+export type AppLocation = AppSellLocation | AppSupportLocation | AppChatLocation
 
 export interface Context {
   // eq. "sell"
@@ -76,13 +88,14 @@ export interface Role {
 export enum FeedbackStatus {
   success = 'success',
   error = 'error',
-  loading = 'loading',
+  loading = 'loading'
 }
 
 export interface Feedback {
   status: FeedbackStatus
   error?: any | void
 }
+
 export interface Response<T> {
   data: T | null
   error: object | null
@@ -106,7 +119,7 @@ export enum ClientInvokeOptions {
   accountTimezone = 'account',
   formatDate = 'formatDate',
   formatDateAndTime = 'formatDateAndTime',
-  formatCurrency = 'formatCurrency',
+  formatCurrency = 'formatCurrency'
 }
 
 export const version = '0.0.5'

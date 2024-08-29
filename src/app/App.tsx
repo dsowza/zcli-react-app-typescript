@@ -1,20 +1,21 @@
-import { lazy, Suspense } from 'react'
+import { JSX, lazy, Suspense } from 'react'
 import { useLocation } from './hooks/useClient'
 import { DEFAULT_THEME, ThemeProvider } from '@zendeskgarden/react-theming'
 import TranslationProvider from './contexts/TranslationProvider.tsx'
+import { AppLocation } from '../types.ts'
 
 const TicketSideBar = lazy(() => import('./locations/TicketSideBar'))
 const Modal = lazy(() => import('./locations/Modal'))
+const Default = lazy(() => import('./locations/Default'))
 
-const LOCATIONS = {
+const LOCATIONS: Partial<Record<AppLocation, React.LazyExoticComponent<() => JSX.Element>>> = {
   ticket_sidebar: TicketSideBar,
-  modal: Modal,
-  default: () => null
+  modal: Modal
 }
 
 function App() {
   const location = useLocation()
-  const Location = location ? LOCATIONS[location as keyof typeof LOCATIONS] : LOCATIONS.default
+  const Location = LOCATIONS[location] ?? Default
 
   return (
     <ThemeProvider theme={{ ...DEFAULT_THEME }}>
